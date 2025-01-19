@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, Image } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ImageBackground } from "react-native";
 
 export default function LoginScreen({ navigation, onLogin }) {
   const [username, setUsername] = useState("");
@@ -7,7 +7,7 @@ export default function LoginScreen({ navigation, onLogin }) {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch("http://192.168.10.25:5000/api/auth/login", {
+      const response = await fetch("http://192.168.10.29:5000/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -29,62 +29,65 @@ export default function LoginScreen({ navigation, onLogin }) {
   };
 
   return (
-    <View style={styles.container}>
-      <Image
-        source={{ uri: "https://via.placeholder.com/100x100.png?text=Logo" }}
-        style={styles.logo}
-      />
-      <Text style={styles.title}>Welcome Back!</Text>
-      <Text style={styles.subtitle}>Login to your account</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Username"
-        placeholderTextColor="#888"
-        value={username}
-        onChangeText={setUsername}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        placeholderTextColor="#888"
-        secureTextEntry
-        value={password}
-        onChangeText={setPassword}
-      />
-      <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-        <Text style={styles.loginButtonText}>Login</Text>
-      </TouchableOpacity>
+    <ImageBackground
+      source={{
+        uri: "https://pbs.twimg.com/media/DTaBQskVQAEaDac.jpg:large",
+      }}
+      style={styles.background}
+    >
+      <View style={styles.container}>
+        <Text style={styles.title}>Mata Kuliah</Text>
+        <Text style={styles.subtitle}>Veri Jhuandes Pratama</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Username"
+          placeholderTextColor="#888"
+          value={username}
+          onChangeText={setUsername}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Password"
+          placeholderTextColor="#888"
+          secureTextEntry
+          value={password}
+          onChangeText={setPassword}
+        />
+        <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+          <Text style={styles.loginButtonText}>Login</Text>
+        </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-        <Text style={styles.registerLink}>Don't have an account? Register here</Text>
-      </TouchableOpacity>
-    </View>
+        <TouchableOpacity onPress={() => navigation.navigate("Register")}>
+          <Text style={styles.registerLink}>Belum Punya Akun? Daftar</Text>
+        </TouchableOpacity>
+      </View>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
+  },
   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#f4f4f4",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
     padding: 20,
-  },
-  logo: {
-    width: 100,
-    height: 100,
-    marginBottom: 20,
   },
   title: {
     fontSize: 28,
     fontWeight: "bold",
-    color: "#333",
+    color: "#fff",
     marginBottom: 5,
     textAlign: "center",
   },
   subtitle: {
     fontSize: 16,
-    color: "#666",
+    color: "#ddd",
     marginBottom: 30,
     textAlign: "center",
   },

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, ActivityIndicator, Alert, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, ActivityIndicator, Alert, TouchableOpacity, ImageBackground } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Icon from "react-native-vector-icons/Ionicons";
 
@@ -14,7 +14,7 @@ export default function ProfileScreen({ onLogout }) {
         if (!tokenData) throw new Error("No token found");
 
         const { token } = JSON.parse(tokenData);
-        const response = await fetch("http://192.168.10.25:5000/api/profile", {
+        const response = await fetch("http://192.168.10.29:5000/api/profile", {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -54,40 +54,49 @@ export default function ProfileScreen({ onLogout }) {
   }
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Icon name="person-circle-outline" size={80} color="#ffffff" />
-        <Text style={styles.username}>{userData.username}</Text>
-      </View>
-
-      <View style={styles.profileCard}>
-        <View style={styles.profileItem}>
-          <Icon name="mail-outline" size={20} color="#495057" style={styles.icon} />
-          <Text style={styles.label}>Email</Text>
-          <Text style={styles.value}>{userData.email}</Text>
+    <ImageBackground
+      source={{ uri: "https://s.cafebazaar.ir/images/upload/screenshot/com.izanaki.itachi.blackwallpapers-screenshots-3.jpg?x-img=v1/resize,h_600,lossless_false/optimize" }}
+      style={styles.background}
+    >
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Icon name="person-circle-outline" size={80} color="#ffffff" />
+          <Text style={styles.username}>{userData.username}</Text>
         </View>
 
-        <View style={styles.profileItem}>
-          <Icon name="calendar-outline" size={20} color="#495057" style={styles.icon} />
-          <Text style={styles.label}>Created At</Text>
-          <Text style={styles.value}>
-            {new Date(userData.createdAt).toLocaleString()}
-          </Text>
-        </View>
-      </View>
+        <View style={styles.profileCard}>
+          <View style={styles.profileItem}>
+            <Icon name="mail-outline" size={20} color="#495057" style={styles.icon} />
+            <Text style={styles.label}>Email</Text>
+            <Text style={styles.value}>{userData.email}</Text>
+          </View>
 
-      <TouchableOpacity style={styles.logoutButton} onPress={onLogout}>
-        <Icon name="log-out-outline" size={20} color="#ffffff" />
-        <Text style={styles.logoutText}>Logout</Text>
-      </TouchableOpacity>
-    </View>
+          <View style={styles.profileItem}>
+            <Icon name="calendar-outline" size={20} color="#495057" style={styles.icon} />
+            <Text style={styles.label}>Dibuat</Text>
+            <Text style={styles.value}>
+              {new Date(userData.createdAt).toLocaleString()}
+            </Text>
+          </View>
+        </View>
+
+        <TouchableOpacity style={styles.logoutButton} onPress={onLogout}>
+          <Icon name="log-out-outline" size={20} color="#ffffff" />
+          <Text style={styles.logoutText}>Logout</Text>
+        </TouchableOpacity>
+      </View>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    resizeMode: "cover",
+  },
   container: {
     flex: 1,
-    backgroundColor: "#f8f9fa",
+    backgroundColor: "rgba(0,0,0,0.6)",
   },
   header: {
     backgroundColor: "#2464EC",
